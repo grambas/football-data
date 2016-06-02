@@ -34,7 +34,7 @@ class FootballDataServiceProvider extends ServiceProvider
                 ]
             ]);
             
-            return new FootBallData($client);
+            return new FootballData($client);
             
         });
     }
