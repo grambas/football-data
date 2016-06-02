@@ -1,13 +1,12 @@
 {
-    "name": "grambas/football-data",
-    "description": "football-data.org API container for Laravel 5.2",
-    "homepage": "https://github.com/grambas/fotoball-data",
+    "name": "grambas/footbal-data",
     "type": "library",
+    "description": "football-data.org API container for Laravel 5.2",
     "keywords": [
         "grambas",
-        "football-data",
-        "football"
+        "footbal-data"
     ],
+    "homepage": "https://github.com/grambas/footbal-data",
     "license": "MIT",
     "authors": [
         {
@@ -16,16 +15,26 @@
             "role": "Developer"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
-        "guzzlehttp/guzzle": ">4.0"
+        "php" : "~5.5|~7.0"
     },
     "require-dev": {
     },
     "autoload": {
         "psr-4": {
-            "Grambas\\FootballData\\": "src",
-            "Grambas\\football-data\\": "src"
+            "Grambas\\FootballData\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
         }
     }
 }
