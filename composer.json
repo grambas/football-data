@@ -22,5 +22,5 @@
         "psr-4": {
             "Grambas\\FootballData\\": "src"
         }
-    },
+    }
 }
