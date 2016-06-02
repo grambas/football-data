@@ -1,6 +1,5 @@
 {
     "name": "grambas/football-data",
-    "type": "library",
     "description": "football-data.org API container for Laravel 5.2",
     "keywords": [
         "grambas",
