@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 use App;
 use GuzzleHttp\Client;
 
-class ServiceProvider extends ServiceProvider
+class FootballDataServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
