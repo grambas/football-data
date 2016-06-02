@@ -2,6 +2,7 @@
     "name": "grambas/football-data",
     "description": "football-data.org API container for Laravel 5.2",
     "homepage": "https://github.com/grambas/fotoball-data",
+    "type": "library",
     "keywords": [
         "grambas",
         "football-data",
@@ -17,7 +18,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "guzzlehttp/guzzle": ">=4.0"
+        "guzzlehttp/guzzle": ">4.0"
     },
     "require-dev": {
     },
