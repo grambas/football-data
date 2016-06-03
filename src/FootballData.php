@@ -14,67 +14,69 @@ class FootballData
 
 	}
 	
-	public function getLeagues($v = 'v1')
+	public function getLeagues( $v="v1")
 	 	{
-		$leagues = $this->client->get('{$v}/soccerseasons')->json();
+		$leagues = $this->client->get("{$v}/soccerseasons")->json();
 		
 		return $leagues;
 	}
 	
-	public function getLeagueFixtures($id, $v = 'v1')
+	public function getLeagueFixtures($id, $v="v1")
 	{		
 		$fixtures = $this->client->get("{$v}/soccerseasons/{$id}/fixtures")->json();
 		
 		return $fixtures;
 	}
 	
-	public function getFixtures($id, $matchday,$v = 'v1')
+	public function getFixtures($id, $matchday, $v="v1")
 	{
 		$fixtures = $this->client->get("{$v}/soccerseasons/{$id}/fixtures/?matchday={$matchday}")->json();
 		
 		return $fixtures;
 	}
 	
-	public function getLeagueTable($id,$v = 'v1')
+	public function getLeagueTable($id, $v="v1")
 	{
 		$league = $this->client->get("{$v}/soccerseasons/{$id}/leagueTable")->json();
 		
 		return $league;		
 	}
 	
-	public function getLeagueTeams($id,$v = 'v1')
+	public function getLeagueTeams($id, $v="v1")
 	{
 		$teams = $this->client->get("{$v}/soccerseasons/{$id}/teams")->json();
 		
 		return $teams;		
 	}
 	
-	public function getTeam($id,$v = 'v1')
+	public function getTeam($id, $v="v1")
 	{
-		$team = $this->client->get('{$v}/teams/'. $id)->json();
+		$team = $this->client->get("{$v}/teams/". $id)->json();
 
 		return $team;		
 	}
 	
-	public function getTeamPlayers($id,$v = 'v1')
+	public function getTeamPlayers($id, $v="v1")
 	{
-		$players = $this->client->get('{$v}/teams/'. $id .'/players')->json();
+		$players = $this->client->get("{$v}/teams/". $id ."/players")->json();
 		
 		return $players;
 	}
 	
-	public function getTeamFixtures($id,$v = 'v1')
+	public function getTeamFixtures($id, $v="v1")
 	{
-		$team_fixtures = $this->client->get('{$v}/teams/'. $id .'/fixtures')->json();
+		$team_fixtures = $this->client->get("{$v}/teams/". $id ."/fixtures")->json();
 		
 		return $team_fixtures;
 	}
 
 
-	public function test($id,$v = 'v1')
+	public function getFixture($id, $v="v1")
 	{
-		$t = $this->client->get('{$v}/soccerseasons/'. $id)->json();
+		//$fixture = $this->client->get( "{$v}/fixtures/". $id. "/head2head=".$matches)->json();
 		
-		return $t;
+		$fixture = $this->client->get( "{$v}/fixtures/". $id)->json();
+
+		return $fixture;
 	}
 }
