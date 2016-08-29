@@ -3,7 +3,7 @@
 
 
 
-football-data.org API Container for Laravel 5.2 
+football-data.org API Container for Laravel 5.1, 5.2
 
 
 ## Requirements
