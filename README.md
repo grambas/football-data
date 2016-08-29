@@ -17,7 +17,7 @@ Via Composer
 ``` bash
 $ composer require grambas/football-data
 ```
-        "guzzlehttp/guzzle": "~6.0"
+
 ## Usage
 
 More about filters, structure and API:
@@ -37,7 +37,7 @@ More about filters, structure and API:
 ## Examples
 ```php
 
-COMPETITION
+//COMPETITION
 
 Football::LeagueTable($id) 			 	//Show League Table / current standing
 Football::LeagueTable($id,$matchday) 	//Show League Table / current standing with filters
@@ -49,7 +49,7 @@ Football::getLeagueTeams($id)  			//List all teams for a certain competition.
 
 
 
-FIXTURES
+//FIXTURES
 
 Football::getCompetitionFixtures($id)   //List all fixtures for a certain competition.
 Football::getCompetitionFixtures($id,$matchday,$timeFrame)  //List all fixtures for a certain competition with filters.
@@ -63,15 +63,11 @@ Football::getFixturesOfSet($leagueCode, $timeFrame) //List fixtures across a set
 Football::getTeamFixtures($id) 			// 	Show all fixtures for a certain team.
 Football::getTeamFixtures($id, $season, $timeFrame, $venue) // 	Show all fixtures for a certain team with filters. Example:Football::getTeamFixtures(66, "2015","n99","home") 
 
-TEAM
+//TEAM
 Football::getTeam($id) 					//Show one team.
 
-PLAYERS
+//PLAYERS
 Football::getTeamPlayers($id) 			//Show all players for a certain team.
-
-
-
-Football::getTeamFixtures($id)
 ```
 
 
