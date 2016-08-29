@@ -12,11 +12,12 @@
     "authors": [
         {
             "name": "Mindaugas",
-            "email": "emai@mindaugasmilius.eu",
+            "email": "email@mindaugasmilius.eu",
             "role": "Developer"
         }
     ],
     "require": {
+        "guzzlehttp/guzzle": "~6.0",
     },
     "autoload": {
         "psr-4": {
