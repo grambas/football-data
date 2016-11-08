@@ -1,5 +1,4 @@
-<?php
-namespace Grambas\FootballData;
+<?php  namespace Grambas\FootballData;
 use GuzzleHttp\Client;
 class FootballData
 {
