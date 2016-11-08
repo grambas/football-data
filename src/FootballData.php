@@ -56,6 +56,6 @@ class FootballData
 	public function getTeamPlayers($id)
 	{
 		$players = $this->client->get("teams/{$id}/players")->getBody();
-		return json_decode($players);
+		return json_decode($players); 
 	}
 }
