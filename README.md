@@ -15,7 +15,7 @@ football-data.org API Container for Laravel 5.1, 5.2
 Via Composer
 
 ``` bash
-$ composer require grambas/football-data
+$ composer require grambas/football-data dev-master
 ```
 
 ## Usage
