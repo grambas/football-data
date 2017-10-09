@@ -24,6 +24,12 @@ More about filters, structure and API:
 [football-data.org Documentation](http://api.football-data.org/documentation)
 
 
+Add your api key to env. file
+
+```
+FootballData_API_KEY=
+```
+add to config/app.php 
 ``` 
 'providers' => [
   Grambas\FootballData\FootballDataServiceProvider::class,
