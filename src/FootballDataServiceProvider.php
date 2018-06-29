@@ -27,11 +27,10 @@ class FootballDataServiceProvider extends ServiceProvider
         $this->app->bind('football', function()
         {
             $client = new Client([
-                'base_uri'  =>  'http://api.football-data.org/v1/',
+                'base_uri'  =>  'http://api.football-data.org/',
                     'headers'   =>  [
-                                        'X-Auth-Token' => getenv('FootballData_API_KEY'),
-                                        'X-Response-Control' => 'full',
-                                    ]
+                        'X-Auth-Token' => getenv('FootballData_API_KEY')
+                    ]
             ]);
             return new FootballData($client);
         });
