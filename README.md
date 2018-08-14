@@ -1,8 +1,6 @@
 # :FootballData
 
 
-
-
 football-data.org API Container for Laravel 5.1, 5.2
 
 
@@ -42,42 +40,111 @@ add to config/app.php
 
 ## Examples
 ```php
+##COMPETITION/LEAGUE
+	
+/**
+ * List all available competitions.
+ *
+ * @param array $filter ['areas' => 'Integer /[0-9]+/']
+ * @return Collection
+ */
+Football::getLeagues(array $filter = ['areas' => ''])
 
-//COMPETITION
+/**
+ * List one particular competition.
+ *
+ * @param integer $leagueID 
+ * @param array $filter ['areas' => 'Integer /[0-9]+/']
+ * @return Collection
+ */ 
+Football::getLeague(int $leagueID, array $filter = ['areas' => ''])
 
-Football::LeagueTable($id) 			 	//Show League Table / current standing
-Football::LeagueTable($id,$matchday) 	//Show League Table / current standing with filters
+/**
+ * List all teams for a particular competition.
+ *
+ * @param integer $leagueID
+ * @param array $filter ['stage' => 'String /[A-Z]+/']
+ * @return Collection
+ */
+Football::getLeagueTeams(int $leagueID, array $filter = ['stage' => ''])
 
-Football::getLeagues(); 				//List all available competitions.
-Football::getLeagues($year);			//List all available competitions with filter
+/**
+ * Show Standings for a particular competition
+ *
+ * @param integer $leagueID
+ * @return Collection
+ */
+Football::getLeagueStandings(int $leagueID)
 
-Football::getLeagueTeams($id)  			//List all teams for a certain competition.
+/**
+ * List all matches for a particular competition.
+ *
+ * @param integer $leagueID
+ * @param array $filter ['dateFrom' => 'yyyy-MM-dd', 'dateTo' => 'yyyy-MM-dd', 'stage' => 'String /[A-Z]+/', 'status' => 'SCHEDULED | LIVE | IN_PLAY | PAUSED | FINISHED | POSTPONED | SUSPENDED | CANCELED', 'matchday' => 'Integer /[1-4]*[0-9]', 'group' => '']
+ * @return Collection
+ */
+Football::getLeagueMatches(int $leagueID, array $filter = [ 'dateFrom' => '', 'dateTo' => '', 'stage' => '', 'status' => '', 'matchday' => '', 'group' => '' ])
+	
+
+
+##FIXTURES/MATCHES
+
+/**
+ * List matches across (a set of) competitions.	
+ *
+ * @param array $filter [ 'competitions' => 'Integer /[0-9]+/', 'dateFrom' => 'yyyy-MM-dd', 'dateTo' => 'yyyy-MM-dd', 'status' => 'SCHEDULED | LIVE | IN_PLAY | PAUSED | FINISHED | POSTPONED | SUSPENDED | CANCELED' ]
+ * @return Collection
+ */
+Football::getMatches(array $filter = [ 'competitions' => '', 'dateFrom' => '', 'dateTo' => '', 'status' => '' ])
+
+/**
+ * Show one particular match.	
+ *
+ * @param integer $matchID
+ * @return Collection
+ */
+Football::getMatche(int $matchID)
 
 
 
-//FIXTURES
+##TEAM
 
-Football::getCompetitionFixtures($id)   //List all fixtures for a certain competition.
-Football::getCompetitionFixtures($id,$matchday,$timeFrame)  //List all fixtures for a certain competition with filters.
+/**
+ * Show one particular team.	
+ *
+ * @param integer $teamID
+ * @return Collection
+ */
+Football::getTeam(int $teamID)
 
-Football::getFixture($id) 				//Show one fixture.
-Football::getFixture($id, $head2head)   //Show one fixture. Variable head2head ist number of games to analyse
+/**
+ * Show all matches for a particular team.
+ *
+ * @param integer $teamID
+ * @param array $filter ['dateFrom' => 'yyyy-MM-dd', 'dateTo' => 'yyyy-MM-dd', 'status' => 'SCHEDULED | LIVE | IN_PLAY | PAUSED | FINISHED | POSTPONED | SUSPENDED | CANCELED', 'venue' => 'home|away']
+ * @return Collection
+ */
+Football::getMatchesForTeam(int $teamID, array $filter = [ 'dateFrom' => '', 'dateTo' => '', 'status' => '', 'venue' => '' ])
 
-Football::getFixturesOfSet() 			//List fixtures across a set of competitions
-Football::getFixturesOfSet($leagueCode, $timeFrame) //List fixtures across a set of competitions with filters
 
-Football::getTeamFixtures($id) 			// 	Show all fixtures for a certain team.
-Football::getTeamFixtures($id, $season, $timeFrame, $venue) // 	Show all fixtures for a certain team with filters. Example:Football::getTeamFixtures(66, "2015","n99","home") 
 
-//TEAM
-Football::getTeam($id) 					//Show one team.
+##AREAS
+	
+/**
+ * List all available areas.
+ *
+ * @return Collection
+ */
+Football::getAreas()
 
-//PLAYERS
-Football::getTeamPlayers($id) 			//Show all players for a certain team.
+/**
+ * List one particular area.
+ *
+ * @param integer $areaID 
+ * @return Collection
+ */
+Football::getArea(int $areaID)
 ```
-
-
-
 
 
 ## License

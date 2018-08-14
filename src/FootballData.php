@@ -1,5 +1,7 @@
 <?php  namespace Grambas\FootballData;
+
 use GuzzleHttp\Client;
+
 class FootballData
 {
 	protected $client;
@@ -8,53 +10,160 @@ class FootballData
 	{	
 		$this->client = $client;
 	}
-	//COMPETITION/LEAGUE
-	public function LeagueTable($id, $matchday="")
-	 	{
-		$leagueTable = $this->client->get("competitions/{$id}/leagueTable/?matchday={$matchday}")->getBody();
-		return json_decode($leagueTable);
-	}
-	public function getLeagues($year="")
-	 	{
-		$leagues = $this->client->get("competitions/?season={$year}")->getBody();
-		return json_decode($leagues);
-	}
-	public function  getLeagueTeams($id)
-	 	{
-		$leagueTeams = $this->client->get("competitions/{$id}/teams")->getBody();
-		return json_decode($leagueTeams);
-	}
-	public function getLeagueFixtures($id, $matchday="", $timeFrame="")
-	 	{
-		$leagueFixtures = $this->client->get("competitions/{$id}/fixtures/?matchday={$matchday}&timeFrame={$timeFrame}")->getBody();
-		return json_decode($leagueFixtures);
-	}
-	//FIXTURES
-	public function getFixture($id, $head="")
-	{	
-		$fixture = $this->client->get( "fixtures/{$id}/?head2head={$head}")->getBody();
-		return json_decode($fixture);
-	}
-	public function getFixturesOfSet($leagueCode="", $timeFrame="")
-	{	
-		$fixtures = $this->client->get( "fixtures/?leagueCode={$leagueCode}&timeFrame={$timeFrame}")->getBody();
-		return json_decode($fixtures);
-	}
-	public function getTeamFixtures($id, $season="", $timeFrame="", $venue="")
+
+	public function run($uri, $type = 'GET')
 	{
-		$teamFixtures = $this->client->get("teams/{$id}/fixtures/?season={$season}&timeFrame={$timeFrame}&venue={$venue}")->getBody();
-		return json_decode($teamFixtures);
+		return json_decode( $this->client->request($type, $uri)->getBody() );
 	}
-	// TEAM
-	public function getTeam($id)
+
+
+
+	##COMPETITION/LEAGUE
+	
+	/**
+	 * List all available competitions.
+	 *
+	 * @param array $filter
+	 * @return Collection
+	 */
+	public function getLeagues(array $filter = ['areas' => ''])
 	{
-		$team = $this->client->get("teams/{$id}")->getBody();
-		return json_decode($team);		
+		$leagues = $this->run("v2/competitions"."?".http_build_query($filter) );
+		return collect($leagues->competitions);
 	}
-	//PLAYERS
-	public function getTeamPlayers($id)
+
+	/**
+	 * List one particular competition.
+	 *
+	 * @param integer $leagueID 
+	 * @param array $filter
+	 * @return Collection
+	 */
+	public function getLeague(int $leagueID, array $filter = ['areas' => ''])
 	{
-		$players = $this->client->get("teams/{$id}/players")->getBody();
-		return json_decode($players); 
+		$league = $this->run("v2/competitions/{$leagueID}"."?".http_build_query($filter));
+		return collect($league);
 	}
+
+	/**
+	 * List all teams for a particular competition.
+	 *
+	 * @param integer $leagueID
+	 * @param array $filter
+	 * @return Collection
+	 */
+	public function  getLeagueTeams(int $leagueID, array $filter = ['stage' => ''])
+	{
+		$leagueTeams = $this->run("v2/competitions/{$leagueID}/teams"."?".http_build_query($filter));
+		return collect($leagueTeams->teams);
+	}
+
+	/**
+	 * Show Standings for a particular competition
+	 *
+	 * @param integer $leagueID
+	 * @return Collection
+	 */
+	public function getLeagueStandings(int $leagueID)
+	{
+		$leagueStandings = $this->run("v2/competitions/{$leagueID}/standings");
+		return collect($leagueStandings->standings);
+	}
+
+	/**
+	 * List all matches for a particular competition.
+	 *
+	 * @param integer $leagueID
+	 * @param array $filter
+	 * @return Collection
+	 */
+	public function getLeagueMatches(int $leagueID, array $filter = [ 'dateFrom' => '', 'dateTo' => '', 'stage' => '', 'status' => '', 'matchday' => '', 'group' => '' ])
+	{
+		$leagueMatches = $this->run("v2/competitions/{$leagueID}/matches"."?".http_build_query($filter));
+		return collect($leagueMatches->matches);
+	}
+	
+
+
+	##FIXTURES/MATCHES
+
+	/**
+	 * List matches across (a set of) competitions.	
+	 *
+	 * @param array $filter
+	 * @return Collection
+	 */
+	public function getMatches(array $filter = [ 'competitions' => '', 'dateFrom' => '', 'dateTo' => '', 'status' => '' ])
+	{
+		$matches = $this->run("v2/matches"."?".http_build_query($filter));
+		return collect($matches->matches);
+	}
+
+	/**
+	 * Show one particular match.	
+	 *
+	 * @param integer $matchID
+	 * @return Collection
+	 */
+	public function getMatche(int $matchID)
+	{
+		$matche = $this->run("v2/matches/{$matchID}");
+		return collect($matche);
+	}
+
+
+
+	##TEAM
+
+	/**
+	 * Show one particular team.	
+	 *
+	 * @param integer $teamID
+	 * @return Collection
+	 */
+	public function getTeam(int $teamID)
+	{
+		$team = $this->run("v2/teams/{$teamID}");
+		return collect($team);
+	}
+
+	/**
+	 * Show all matches for a particular team.
+	 *
+	 * @param integer $teamID
+	 * @param array $filter
+	 * @return Collection
+	 */
+	public function getMatchesForTeam(int $teamID, array $filter = [ 'dateFrom' => '', 'dateTo' => '', 'status' => '', 'venue' => '' ])
+	{
+		$matches = $this->run("v2/teams/{$teamID}/matches"."?".http_build_query($filter));
+		return collect($matches->matches);
+	}
+
+
+	##AREAS
+	
+	/**
+	 * List all available areas.
+	 *
+	 * @return Collection
+	 */
+	public function getAreas()
+	{
+		$areas = $this->run("v2/areas");
+		return collect($areas->areas);
+	}
+
+	/**
+	 * List one particular area.
+	 *
+	 * @param integer $areaID 
+	 * @return Collection
+	 */
+	public function getArea(int $areaID)
+	{
+		$area = $this->run("v2/areas/{$areaID}");
+		return collect($area);
+	}
+
 }
